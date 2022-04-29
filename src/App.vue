@@ -4,6 +4,7 @@ import { ref } from "vue"
 // components
 import GuideModal from "./components/GuideModal.vue"
 import GameBox from "./components/GameBox.vue"
+import ReloadPwa from "./components/ReloadPwa.vue"
 
 const isDark = useDark()
 const toggleThemeMode = useToggle(isDark)
@@ -26,6 +27,7 @@ const showResult = (reactionTime: number) => {
 </script>
 
 <template>
+  <ReloadPwa />
   <header>
     <nav class="w-full bg-blue-500 py-2 px-4">
       <div class="flex justify-between items-center">

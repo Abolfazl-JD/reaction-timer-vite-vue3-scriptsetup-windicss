@@ -9,9 +9,9 @@ import ReloadPwa from "./components/ReloadPwa.vue"
 const isDark = useDark()
 const toggleThemeMode = useToggle(isDark)
 
-const guidebook = ref(true)
+const isPlaying = ref(false)
 const hideModal = () => {
-  guidebook.value = false
+  isPlaying.value = true
 }
 
 const gameResult = ref(0)
@@ -19,6 +19,7 @@ const rank = ref("")
 
 const showResult = (reactionTime: number) => {
   gameResult.value = reactionTime
+  isPlaying.value = false
   if (gameResult.value < 250) rank.value = "you're very fast "
   else if (gameResult.value < 350) rank.value = "you're a bit fast "
   else if (gameResult.value < 500) rank.value = "you're slow "
@@ -65,10 +66,10 @@ const showResult = (reactionTime: number) => {
   </header>
 
   <main>
-    <transition name="modal" v-if="guidebook">
+    <transition name="modal" v-if="!isPlaying">
       <GuideModal @hide-guideBook="hideModal" />
     </transition>
-    <GameBox v-if="!guidebook && !gameResult" @finish-game="showResult" />
+    <GameBox v-if="isPlaying && !gameResult" @finish-game="showResult" />
 
     <div v-if="gameResult" class="w-full text-center relative top-28">
       <button @click="gameResult = 0" class="game-btn tracking-1px">

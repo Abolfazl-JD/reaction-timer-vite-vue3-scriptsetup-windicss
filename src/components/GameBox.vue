@@ -27,15 +27,22 @@ const showResult = () => {
   showBoxGame.value = false
   emit("finish-game", reactionTime.value)
 }
+
+const warnUser = () => {}
 </script>
 
 <template>
   <div v-if="showBoxGame">
-    <h2 class="text-green-600 dark:text-green-400">Now</h2>
-    <div @click="showResult" class="bg-green-500 dark:bg-green-600"></div>
+    <h2 class="text-green-600 dark:text-green-400 game-title">Now</h2>
+    <div
+      @click="showResult"
+      class="bg-green-500 dark:bg-green-600 box-game"
+    ></div>
   </div>
   <div v-else>
-    <h2 class="text-red-600 dark:text-red-400">waiting for green box ...</h2>
-    <div @click="warnUser" class="bg-red-500 dark:bg-red-600"></div>
+    <h2 class="text-red-600 dark:text-red-400 game-title">
+      waiting for green box ...
+    </h2>
+    <div @click="warnUser" class="bg-red-500 dark:bg-red-600 box-game"></div>
   </div>
 </template>

@@ -1,7 +1,5 @@
 <script setup lang="ts">
-const emits = defineEmits<{
-  (event: "hide-guideBook"): void
-}>()
+import router from "@/router"
 </script>
 
 <template>
@@ -26,7 +24,10 @@ const emits = defineEmits<{
       >
       Let's start !
     </p>
-    <button @click="emits('hide-guideBook')" class="game-btn tracking-5px">
+    <button
+      @click="router.push({ name: 'reaction-game' })"
+      class="game-btn tracking-5px"
+    >
       START
     </button>
   </div>

@@ -1,30 +1,10 @@
 <script setup lang="ts">
 import { useDark, useToggle } from "@vueuse/core"
-import { ref } from "vue"
 // components
-import GuideModal from "./components/GuideModal.vue"
-import GameBox from "./components/GameBox.vue"
 import ReloadPwa from "./components/ReloadPwa.vue"
 
 const isDark = useDark()
 const toggleThemeMode = useToggle(isDark)
-
-const isPlaying = ref(false)
-const hideModal = () => {
-  isPlaying.value = true
-}
-
-const gameResult = ref(0)
-const rank = ref("")
-
-const showResult = (reactionTime: number) => {
-  gameResult.value = reactionTime
-  isPlaying.value = false
-  if (gameResult.value < 250) rank.value = "you're very fast "
-  else if (gameResult.value < 350) rank.value = "you're a bit fast "
-  else if (gameResult.value < 500) rank.value = "you're slow "
-  else rank.value = "you're super lazy "
-}
 </script>
 
 <template>
@@ -66,18 +46,7 @@ const showResult = (reactionTime: number) => {
   </header>
 
   <main>
-    <transition name="modal" v-if="!isPlaying">
-      <GuideModal @hide-guideBook="hideModal" />
-    </transition>
-    <GameBox v-if="isPlaying && !gameResult" @finish-game="showResult" />
-
-    <div v-if="gameResult" class="w-full text-center relative top-28">
-      <button @click="gameResult = 0" class="game-btn tracking-1px">
-        Play again
-      </button>
-      <p class="mt-5 dark:text-white">Reaction time - {{ gameResult }}</p>
-      <h4 class="text-2xl font-bold text-green-500 mt-7">{{ rank }}</h4>
-    </div>
+    <RouterView />
   </main>
 </template>
 
@@ -97,20 +66,5 @@ const showResult = (reactionTime: number) => {
 .theme-switch-leave-to {
   opacity: 0;
   transform: translateX(10px);
-}
-
-.modal-enter-from {
-  opacity: 0;
-  transform: translateY(-100px);
-}
-
-.modal-enter-active,
-.modal-leave-active {
-  transition: all 0.3s ease;
-}
-
-.modal-leave-to {
-  opacity: 0;
-  transform: translateY(100px);
 }
 </style>

@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import { ref } from "vue"
-
-const emit = defineEmits<{
-  (event: "finish-game", reactionTime: number): void
-}>()
+import router from "@/router"
+// store
+import { gameData } from "../stores/mainData"
+const reactionTimerData = gameData()
 
 const showBoxGame = ref(false)
 const delay = Math.random() * (5000 - 2000) + 2000
@@ -13,19 +13,20 @@ setTimeout(() => {
   calculateReactionTime()
 }, delay)
 
-const reactionTime = ref(0)
 const timer = ref<number | undefined>(undefined)
 
 const calculateReactionTime = () => {
   timer.value = setInterval(() => {
-    reactionTime.value += 10
+    reactionTimerData.$patch((state) => {
+      state.gameResult += 10
+    })
   }, 10)
 }
 
 const showResult = () => {
   clearInterval(timer.value)
-  showBoxGame.value = false
-  emit("finish-game", reactionTime.value)
+  reactionTimerData.determineRank()
+  router.push({ name: "game-result" })
 }
 
 const warnUser = () => {}

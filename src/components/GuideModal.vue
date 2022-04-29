@@ -1,0 +1,32 @@
+<script setup lang="ts">
+const emits = defineEmits<{
+  (event: "hide-guideBook"): void
+}>()
+</script>
+
+<template>
+  <div
+    class="w-11/12 xs:w-10/12 sm:w-8/12 lg:w-6/12 xl:w-5/12 bg-gray-100 shadow-md dark:(bg-gray-900) mx-auto pl-5 pr-3 py-4 rounded-lg relative top-20 z-50"
+  >
+    <h2
+      class="text-green-800 dark:text-green-200 font-bold text-3xl text-center"
+    >
+      Welcome to reaction timer game
+    </h2>
+    <p class="mt-10 text-xl dark:text-white">
+      This game is for calculating your reaction time.
+    </p>
+    <p class="mt-2 leading-8 text-gray-700 dark:text-gray-300 text-lg">
+      After clicking start button , wait until the green box appear on the page
+      ,
+      <b
+        >the time it takes after appearing the green box until you click it; is
+        your reaction time.</b
+      >
+      Let's start !
+    </p>
+    <button @click="emits('hide-guideBook')" class="game-btn tracking-5px">
+      START
+    </button>
+  </div>
+</template>

@@ -17,11 +17,12 @@ const emits = defineEmits<{
       This game is for calculating your reaction time.
     </p>
     <p class="mt-2 leading-8 text-gray-700 dark:text-gray-300 text-lg">
-      After clicking start button , wait until the green box appear on the page
-      ,
+      After clicking start button , wait until the
+      <span class="text-red-500">red</span> box turns
+      <span class="text-green-500">green</span> ,
       <b
-        >the time it takes after appearing the green box until you click it; is
-        your reaction time.</b
+        >the time it takes that you click the box after being green; is your
+        reaction time.</b
       >
       Let's start !
     </p>

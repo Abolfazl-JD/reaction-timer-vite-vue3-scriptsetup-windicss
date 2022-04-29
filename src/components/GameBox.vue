@@ -30,17 +30,25 @@ const showResult = () => {
 </script>
 
 <template>
-  <div
-    v-if="showBoxGame"
-    @click="showResult"
-    class="w-8/12 xs:w-4/12 md:w-3/12 lg:w-2/12 h-40 cursor-pointer rounded-md bg-green-500 dark:bg-green-600 relative pointer top-28 text-white text-2xl flex justify-center items-center mx-auto"
-  >
-    Click me
+  <div v-if="showBoxGame">
+    <h2
+      class="text-center text-green-600 dark:text-green-400 font-bold text-xl mt-28"
+    >
+      Now
+    </h2>
+    <div
+      @click="showResult"
+      class="w-8/12 xs:w-4/12 md:w-3/12 lg:w-2/12 h-40 cursor-pointer rounded-md bg-green-500 dark:bg-green-600 relative pointer top-5 text-white text-2xl flex justify-center items-center mx-auto"
+    ></div>
   </div>
-  <h2
-    v-show="!timer"
-    class="text-center text-green-600 dark:text-green-400 font-bold text-xl mt-28"
-  >
-    waiting for green box ...
-  </h2>
+  <div v-else>
+    <h2
+      class="text-center text-red-600 dark:text-red-400 font-bold text-xl mt-28"
+    >
+      waiting for green box ...
+    </h2>
+    <div
+      class="w-8/12 xs:w-4/12 md:w-3/12 lg:w-2/12 h-40 cursor-pointer rounded-md bg-red-500 dark:bg-red-600 relative top-5 pointer text-white text-2xl flex justify-center items-center mx-auto"
+    ></div>
+  </div>
 </template>

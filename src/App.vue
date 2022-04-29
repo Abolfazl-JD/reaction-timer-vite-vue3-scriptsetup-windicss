@@ -1,10 +1,19 @@
 <script setup lang="ts">
 import { useDark, useToggle } from "@vueuse/core"
+import router from "./router"
 // components
 import ReloadPwa from "./components/ReloadPwa.vue"
+// store
+import { gameData } from "./stores/mainData"
+const reactionTimerData = gameData()
 
 const isDark = useDark()
 const toggleThemeMode = useToggle(isDark)
+
+const goToHomePage = () => {
+  router.push({ name: "handbook" })
+  reactionTimerData.$reset()
+}
 </script>
 
 <template>
@@ -12,7 +21,12 @@ const toggleThemeMode = useToggle(isDark)
   <header>
     <nav class="w-full bg-blue-500 py-2 px-4">
       <div class="flex justify-between items-center">
-        <h1 class="text-white font-bold text-3xl">𝑅𝑒𝒶𝒸𝓉𝒾𝑜𝓃 𝓉𝒾𝓂𝑒𝓇</h1>
+        <h1
+          class="text-white font-bold text-3xl cursor-pointer"
+          @click="goToHomePage"
+        >
+          𝑅𝑒𝒶𝒸𝓉𝒾𝑜𝓃 𝓉𝒾𝓂𝑒𝓇
+        </h1>
         <div class="theme-switcher sm:pr-5" @click="toggleThemeMode()">
           <transition mode="out-in" name="theme-switch">
             <svg

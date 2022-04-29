@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue"
+import { ref, onMounted, onBeforeUnmount } from "vue"
 import router from "@/router"
 // store
 import { gameData } from "../stores/mainData"
@@ -8,10 +8,17 @@ const reactionTimerData = gameData()
 const showBoxGame = ref(false)
 const delay = Math.random() * (5000 - 2000) + 2000
 
-setTimeout(() => {
-  showBoxGame.value = true
-  calculateReactionTime()
-}, delay)
+const timeout = ref<number | undefined>(undefined)
+onMounted(() => {
+  timeout.value = setTimeout(() => {
+    showBoxGame.value = true
+    calculateReactionTime()
+  }, delay)
+})
+
+onBeforeUnmount(() => {
+  if (timeout.value) clearTimeout(timeout.value)
+})
 
 const timer = ref<number | undefined>(undefined)
 
@@ -29,7 +36,11 @@ const showResult = () => {
   router.push({ name: "game-result" })
 }
 
-const warnUser = () => {}
+const warnUser = () => {
+  clearInterval(timer.value)
+  reactionTimerData.$reset()
+  router.push({ name: "game-warn" })
+}
 </script>
 
 <template>
